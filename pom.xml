@@ -13,6 +13,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>5.14.4</junit.version>
     <project.build.outputTimestamp>2026-09-27T00:00:00Z</project.build.outputTimestamp>
+    <cyclonedx.version>2.9.3</cyclonedx.version>
 </properties>
 
 <dependencies>
@@ -32,7 +33,7 @@
     </dependency>
 </dependencies>
 
-    <build>
+   <build>
     <plugins>
 
         <plugin>
@@ -75,7 +76,27 @@
             </executions>
         </plugin>
 
+        <plugin>
+            <groupId>org.cyclonedx</groupId>
+            <artifactId>cyclonedx-maven-plugin</artifactId>
+            <version>${cyclonedx.version}</version>
+
+            <executions>
+                <execution>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>makeAggregateBom</goal>
+                    </goals>
+                </execution>
+            </executions>
+
+            <configuration>
+                <outputFormat>json</outputFormat>
+                <outputName>bom</outputName>
+            </configuration>
+        </plugin>
+
     </plugins>
-</build>
+</build>   
 
 </project>
